@@ -40,9 +40,29 @@ CFLAGS += ${OPTFLAGS}
 INC = -I./ -I../
 
 ifeq ($(bigmpi),1)
- DEFS := ${DEFS} -DBIGMPI
- INC := ${INC} ${BIGMPI_INC}
+ DEFS	:= ${DEFS} -DBIGMPI
+ INC	:= ${INC} ${BIGMPI_INC}
 endif
+
+
+########### added by Gian for PCL mini-cluster #################################
+ifeq ($(HOST),pcl-tiergarten)
+ CC	:= mpiicpc
+ OPTS	:= -g -O2
+ DEFS	:= -DUSE_MM_MALLOC -DSTANDALONE -DMKL_ILP64
+ CFLAGS	:= -xhost -qopenmp -std=c++11 $(OPTS) $(DEFS) -fPIC
+ LDFLAGS:= -L${MKLROOT}/lib/intel64 \
+	-lmkl_intel_lp64 -lmkl_intel_thread \
+	-lmkl_core  -lmkl_blacs_intelmpi_lp64 \
+	-lpthread \
+	-lmkl_avx
+ PATH := ${PATH}:/swtools/intel/bin
+ INC	+= -I/nfs_home/giangiac/Intel-QS -I/swtools/intel/mkl/include/
+ MKLROOT= /swtools/intel/mkl/
+endif
+################################################################################
+
+
 
 ########### Modified for the ccefw-desktop environment ############
 ifeq ($(HOST),ccefw-desktop)
@@ -53,15 +73,6 @@ ifeq ($(HOST),ccefw-desktop)
  PATH := ${PATH}:/opt/intel/bin
  INC = -I./ -I../ -I/opt/intel/mkl/include/
  MKLROOT = /opt/intel/mkl/
-endif
-################################################################################
-
-
-########### added by Gian for PCL mini-cluster #################################
-ifeq ($(HOST),pcl-tiergarten.sc.intel.com)
- PATH := ${PATH}:/swtools/intel/bin
- INC += -I/nfs_home/giangiac/Intel-QS -I/swtools/intel/mkl/include/
- MKLROOT = /swtools/intel/mkl/
 endif
 ################################################################################
 

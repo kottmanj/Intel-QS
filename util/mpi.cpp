@@ -248,7 +248,6 @@ MPI_Comm openqu::mpi::Environment::comm()
 
 
 #ifdef INTELQS_HAS_MPI
-
 openqu::mpi::Exception::Exception(int result) : result_(result)
 {
   // Get the error messaage from MPI
@@ -259,7 +258,6 @@ openqu::mpi::Exception::Exception(int result) : result_(result)
 }
 
 openqu::mpi::Exception::~Exception() throw() {}
-
 #endif
 
 void openqu::mpi::barrier()
@@ -306,12 +304,13 @@ void openqu::mpi::print(std::string s, bool all)
 
 void openqu::mpi::print(std::string s, MPI_Comm comm)
 {
-  int rank ;
+  int rank = 1 ;
   int size ;
   MPI_Comm_rank(comm, &rank);
   MPI_Comm_size(comm, &size);
 
-  if (1) {
+  if (1)
+  {
     if (rank == 0) printf("[%3d] %s\n", rank, s.c_str());
 #ifdef INTELQS_HAS_MPI
     std::vector<char> buffer;

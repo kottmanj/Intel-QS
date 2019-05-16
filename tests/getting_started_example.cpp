@@ -23,15 +23,22 @@
 // Start of the main program (C++ language).
 int main(int argc, char **argv)
 {
+#ifdef INTELQS_HAS_MPI
   // Create the MPI environment, passing the same argument to all the ranks.
   openqu::mpi::Environment env(argc, argv);
   // qHiPSTER is structured so that only even number of ranks are used to store
   // and manipulate the quantum state. In case the number of ranks is not supported,
   // try to decrease it by 1 until it is.
+std::cout << "rank num = " << env.size() << "\n";
+std::cout << "rank id = " << env.rank() << "\n";
+std::cout << "useful? = " << env.is_usefull_rank() << "\n";
   if (env.is_usefull_rank() == false) return 0;
   // qHiPSTER has functions that simplify some MPI instructions. However, it is important
   // to keep trace of the current rank.
   int myid = env.rank();
+#else
+  int myid = 0;
+#endif
 
 
 

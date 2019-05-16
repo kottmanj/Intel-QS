@@ -20,6 +20,7 @@ all:
 	cd qureg; $(MAKE)
 	cd tests; $(MAKE)
 	cd interface; $(MAKE)
+	cd lib_python; $(MAKE)
 
 clean:
 	cd util; $(MAKE) clean
@@ -27,6 +28,7 @@ clean:
 	cd qureg; $(MAKE) clean
 	cd tests; $(MAKE) clean
 	cd interface; $(MAKE) clean
+	cd lib_python; $(MAKE) clean
 	rm -fr ./build/
 
 depend:
