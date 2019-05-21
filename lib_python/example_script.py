@@ -18,7 +18,7 @@ comm.Barrier()
 
 
 print("Creation of the QuantumRegister object.");
-num_qubits = 4;
+num_qubits = 8;
 qreg = simulator.QubitRegister(num_qubits, "base", 0, 0);
 
 print("Initialize to 1= |1>|0>|0>|0>.");
@@ -26,7 +26,7 @@ qreg.Initialize("base",1);
 
 print("Get probabilities :\n q(0) has prob. {} to be in |1>\n q(1) has prob. {} to be in |1>".format(qreg.GetProbability(0),qreg.GetProbability(1)));
 
-print("Compute PauliWords Expectation Value: XZII")
+print("Compute PauliWords Expectation Value: ZZII")
 qubits = [0,1] # the qubits to measure
 paulis = [3,3] # the pauli words: x=1, y=2, z=3)
 expv=qreg.compute_ExpectationValue(qubits,paulis)
