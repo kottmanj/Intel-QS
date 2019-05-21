@@ -1,8 +1,8 @@
 import numpy
-from numpy import random_intel
+from numpy import random_intel # crucial to import this before the intelqs
 import intelqs as simulator
 import subprocess
-import mpi4py
+from mpi4py import MPI # crucial to import this
 
 #------------------------------------------------
 #- Quantum Simulation ---------------------------
