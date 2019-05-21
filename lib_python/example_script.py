@@ -1,11 +1,13 @@
-import intelqs as simulator
 import numpy
 from numpy import random_intel
+import intelqs as simulator
 import subprocess
+import mpi4py
 
 #------------------------------------------------
 #- Quantum Simulation ---------------------------
 #------------------------------------------------
+
 
 print("Creation of the QuantumRegister object.");
 num_qubits = 2;
