@@ -31,7 +31,7 @@ BIGMPI_LIB = /opt/bigmpi/lib/libbigmpi.a
 BIGMPI_INC = -I/opt/bigmpi/include
 
 CFLAGS = ${OPTS} ${DEFS} \
-         -Wall -std=c++11 -qopenmp #-restrict \
+         -Wall -std=c++11 -qopenmp -fPIC #-restrict \
 # -fasm-blocks
 
 CFLAGS += ${OPTFLAGS}
