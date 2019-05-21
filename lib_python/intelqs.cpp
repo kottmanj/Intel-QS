@@ -94,6 +94,7 @@ PYBIND11_MODULE(intelqs, m)
                  &QubitRegister<ComplexDP>::Initialize)
         .def("GetProbability", &QubitRegister<ComplexDP>::GetProbability)
         .def("ExpectationValue", &QubitRegister<ComplexDP>::ExpectationValue)
+        .def("compute_ExpectationValue", &QubitRegister<ComplexDP>::compute_ExpectationValue)
         // Utility functions:
         .def("Print",
              [](QubitRegister<ComplexDP> &a, std::string description) {
