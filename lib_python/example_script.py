@@ -8,6 +8,14 @@ from mpi4py import MPI # crucial to import this
 #- Quantum Simulation ---------------------------
 #------------------------------------------------
 
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+
+if rank==0: print("Test MPI:")
+comm.Barrier()
+print("hello from process ", rank)
+comm.Barrier()
+
 
 print("Creation of the QuantumRegister object.");
 num_qubits = 4;
