@@ -1,7 +1,7 @@
 include ../make.inc
 # ---------------------------------------------
 
-CFLAGS	:= -xhost -qopenmp -O2 -std=c++11 $(DEFS) -fPIC
+CFLAGS	:= -xhost -qopenmp -O3 -std=c++11 $(DEFS) -fPIC
 
 # ---------------------------------------------
 
