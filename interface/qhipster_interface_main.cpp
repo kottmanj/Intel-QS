@@ -59,8 +59,8 @@ int main(int argc, char*argv[]) {
                  std::cout << "hello\n";
                  token = line.substr(0,par_open);
                  param = line.substr(par_open+1,par_close-par_open-1);
-            std::cout << "line=" << line << "\n";
-	    std::cout << "param=" << param << "\n";        
+            //std::cout << "line=" << line << "\n";
+	    //std::cout << "param=" << param << "\n";        
                  rest = line.substr(par_close+1,line.length());
 		 rest += " "+param;
                  
@@ -68,11 +68,11 @@ int main(int argc, char*argv[]) {
                  token = line.substr(0,token_end);
                  rest = line.substr(token_end+1,line.length());
 	    }    
-	    std::cout << "token=" << token << "\n";        
-	    std::cout << "rest =" << rest << "\n";        
-	    std::cout << "param=" << param << "\n";        
-	    std::cout << "( at" << par_open << "\n";
-	    std::cout << ") at" << par_close << "\n";
+	    //std::cout << "token=" << token << "\n";        
+	    //std::cout << "rest =" << rest << "\n";        
+	    //std::cout << "param=" << param << "\n";        
+	    //std::cout << "( at" << par_open << "\n";
+	    //std::cout << ") at" << par_close << "\n";
 
 	    if(!token.empty()) {
 	/*
