@@ -39,6 +39,16 @@ unsigned long unk(string args) {
     return 1;
 }
 
+unsigned long RX_handler(string args) {
+    cout << "RX"<< " [" << args << "]" <<endl;
+    std::stringstream ss(args);
+    std::string args_qubit;
+    double angle;
+    ss >> args_qubit;
+    ss >> angle;
+    psi1->ApplyRotationX(query_qubit_id(args_qubit), angle);
+    return 0;
+}
 
 unsigned long S_handler(string args) {
     cout << "S"<< " [" << args << "]" <<endl;
@@ -114,7 +124,8 @@ unordered_map<string, function<long(string)>> qufun_table = {\
                                                 {".free", qufree},
                                                 {".iversion",quiversion},
                                                 {".version",quversion},
-                                                {"H", H_handler},
+                                                {"RX", RX_handler},
+						{"H", H_handler},
                                                 {"CNOT", CNOT_handler},
                                                 {"PrepZ",PrepZ_handler},
                                                 {"T", T_handler},
