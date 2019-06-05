@@ -56,12 +56,15 @@ int main(int argc, char*argv[]) {
             token = line.substr(0,token_end);
             string param = "";
 	    if(par_open>=0){
-                 std::cout << "hello\n";
                  token = line.substr(0,par_open);
                  param = line.substr(par_open+1,par_close-par_open-1);
             //std::cout << "line=" << line << "\n";
 	    //std::cout << "param=" << param << "\n";        
                  rest = line.substr(par_close+1,line.length());
+                 // Pyquil failsafe:
+                 if(param=="pi/2") param = "1.5707963267948966";
+                 if(param=="-pi/2") param = "-1.5707963267948966";
+                 
 		 rest += " "+param;
                  
 	    }else{

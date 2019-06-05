@@ -39,6 +39,74 @@ unsigned long unk(string args) {
     return 1;
 }
 
+unsigned long print_handler(string args) {
+	psi1->Print("current state");
+	return 0;
+}
+
+std::string extract_from_par(const std::string& s){
+	int start = s.find_first_of("[");
+	int end = s.find_first_of("]");
+	return s.substr(start+1,end-start-1);
+}
+
+unsigned long expectation_handler(string args) {
+//	int qubit_start = args.find_first_of('(');        
+//	int qubit_end = args.find_first_of(')');        
+//	int pauli_start = args.find_first_of('[');        
+//	int pauli_end = args.find_first_of(']');        
+//
+//        string qubit_strings = args.substr(qubit_start+1,qubit_end-qubit_start-1);
+//	string pauli_strings = args.substr(pauli_start+1,pauli_end-pauli_start-1);
+//        
+//	std::stringstream ss(qubit_strings);
+//        std::vector<unsigned int> qubits;
+//	while(!ss.eof()){
+//		int qubit, pauli;
+//                ss >> qubit;
+//		qubits.push_back(qubit);
+//	}            
+//        std::stringstream sss(pauli_strings);
+//        std::vector<unsigned int> paulis;
+//        while(!sss.eof()){
+//                int pauli;
+//                sss >> pauli;
+//                paulis.push_back(pauli);
+//        } 
+//	
+//	cout << "Measure Paulis [ ";
+//        for (const auto x:paulis) std::cout << x << " ";
+//	//cout <<  "]" << " on qubits (";
+//	//cout << qubits << ")" << std::endl;
+	std::cout << "args=" << args << endl;
+	std::stringstream ss(args);
+        std::vector<unsigned int> qubits;
+	std::vector<unsigned int> paulis;
+	string word;
+	while(ss>>word){
+		//std::cout << "word=" << word << "\n";
+		char pauli=word[0];
+		int ipauli=0;
+		if(pauli=='X') ipauli=1;
+		else if(pauli=='Y') ipauli=2;
+     		else if(pauli=='Z') ipauli=3;
+		paulis.push_back(ipauli);
+		
+		std::string qubit=extract_from_par(word);
+		std::cout << word << " -> " << qubit << "\n";
+		int iqubit=query_qubit_id(qubit);
+		qubits.push_back(iqubit);
+	}	
+	std::cout << "qubits=";
+        for (const auto x:qubits) std::cout << x << " ";
+	std::cout << "paulis=";
+        for (const auto x:paulis) std::cout << x << " ";
+	std::cout << "\n";
+	auto result=psi1->compute_ExpectationValue(qubits, paulis);
+	cout << "expectation value=" << result << "\n";
+	return 0;
+}
+
 unsigned long RX_handler(string args) {
     cout << "RX"<< " [" << args << "]" <<endl;
     std::stringstream ss(args);
@@ -49,6 +117,32 @@ unsigned long RX_handler(string args) {
     psi1->ApplyRotationX(query_qubit_id(args_qubit), angle);
     return 0;
 }
+
+unsigned long RY_handler(string args) {
+    cout << "RY"<< " [" << args << "]" <<endl;
+    std::stringstream ss(args);
+    std::string args_qubit;
+    double angle;
+    ss >> args_qubit;
+    ss >> angle;
+    psi1->ApplyRotationY(query_qubit_id(args_qubit), angle);
+    return 0;
+}
+
+unsigned long RZ_handler(string args) {
+    cout << "RZ"<< " [" << args << "]" <<endl;
+    std::stringstream ss(args);
+    std::string args_qubit;
+    double angle;
+    ss >> args_qubit;
+    ss >> angle;
+    psi1->ApplyRotationZ(query_qubit_id(args_qubit), angle);
+    return 0;
+}
+
+
+
+
 
 unsigned long S_handler(string args) {
     cout << "S"<< " [" << args << "]" <<endl;
@@ -125,6 +219,8 @@ unordered_map<string, function<long(string)>> qufun_table = {\
                                                 {".iversion",quiversion},
                                                 {".version",quversion},
                                                 {"RX", RX_handler},
+                                                {"RY", RY_handler},
+                                                {"RZ", RZ_handler},
 						{"H", H_handler},
                                                 {"CNOT", CNOT_handler},
                                                 {"PrepZ",PrepZ_handler},
@@ -133,6 +229,8 @@ unordered_map<string, function<long(string)>> qufun_table = {\
                                                 {"Tdag", Tdag_handler},
                                                 {"S", S_handler},
                                                 {"MeasZ", MeasZ_handler},
+                                                {"print", print_handler},
+                                                {"expectation", expectation_handler},
                                                 {"*", unk},
 };
 
