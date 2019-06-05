@@ -144,6 +144,7 @@ unsigned long CNOT_handler(string args) {
     int qubit1,
         qubit2;
     int token_end = args.find_first_of(',');
+    if(token_end<0) token_end = args.find_first_of(' ');
 
     qubit1 = query_qubit_id(args.substr(0,token_end));
     qubit2 = query_qubit_id(args.substr(token_end+1,args.length()));
