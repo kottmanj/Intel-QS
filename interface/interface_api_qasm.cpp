@@ -51,34 +51,6 @@ std::string extract_from_par(const std::string& s){
 }
 
 unsigned long expectation_handler(string args) {
-//	int qubit_start = args.find_first_of('(');        
-//	int qubit_end = args.find_first_of(')');        
-//	int pauli_start = args.find_first_of('[');        
-//	int pauli_end = args.find_first_of(']');        
-//
-//        string qubit_strings = args.substr(qubit_start+1,qubit_end-qubit_start-1);
-//	string pauli_strings = args.substr(pauli_start+1,pauli_end-pauli_start-1);
-//        
-//	std::stringstream ss(qubit_strings);
-//        std::vector<unsigned int> qubits;
-//	while(!ss.eof()){
-//		int qubit, pauli;
-//                ss >> qubit;
-//		qubits.push_back(qubit);
-//	}            
-//        std::stringstream sss(pauli_strings);
-//        std::vector<unsigned int> paulis;
-//        while(!sss.eof()){
-//                int pauli;
-//                sss >> pauli;
-//                paulis.push_back(pauli);
-//        } 
-//	
-//	cout << "Measure Paulis [ ";
-//        for (const auto x:paulis) std::cout << x << " ";
-//	//cout <<  "]" << " on qubits (";
-//	//cout << qubits << ")" << std::endl;
-	std::cout << "args=" << args << endl;
 	std::stringstream ss(args);
         std::vector<unsigned int> qubits;
 	std::vector<unsigned int> paulis;
@@ -97,13 +69,9 @@ unsigned long expectation_handler(string args) {
 		int iqubit=query_qubit_id(qubit);
 		qubits.push_back(iqubit);
 	}	
-	std::cout << "qubits=";
-        for (const auto x:qubits) std::cout << x << " ";
-	std::cout << "paulis=";
-        for (const auto x:paulis) std::cout << x << " ";
-	std::cout << "\n";
+	
 	auto result=psi1->compute_ExpectationValue(qubits, paulis);
-	cout << "expectation value=" << result << "\n";
+	cout << "expectation value: " << args << " value=" <<  result << "\n";
 	return 0;
 }
 
