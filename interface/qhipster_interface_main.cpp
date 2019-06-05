@@ -36,6 +36,7 @@ int main(int argc, char*argv[]) {
     openqu::mpi::Environment env(argc, argv);
     string line = "";
     string token = "";
+    string rest = "";
 
     if (env.is_usefull_rank() == false) 
         return 0;
@@ -48,17 +49,39 @@ int main(int argc, char*argv[]) {
 
         if(line.length() >= 1) {
             int token_end = line.find_first_of(' ');
+	    int par_open = line.find_first_of('(');
+            int par_close = line.find_first_of(')');
             unsigned long result = 1;
 
             token = line.substr(0,token_end);
-            if(!token.empty()) {
+            string param = "";
+	    if(par_open>=0){
+                 std::cout << "hello\n";
+                 token = line.substr(0,par_open);
+                 param = line.substr(par_open+1,par_close-par_open-1);
+            std::cout << "line=" << line << "\n";
+	    std::cout << "param=" << param << "\n";        
+                 rest = line.substr(par_close+1,line.length());
+		 rest += " "+param;
+                 
+	    }else{
+                 token = line.substr(0,token_end);
+                 rest = line.substr(token_end+1,line.length());
+	    }    
+	    std::cout << "token=" << token << "\n";        
+	    std::cout << "rest =" << rest << "\n";        
+	    std::cout << "param=" << param << "\n";        
+	    std::cout << "( at" << par_open << "\n";
+	    std::cout << ") at" << par_close << "\n";
+
+	    if(!token.empty()) {
 	/*
                function<long(string)> func = qufun_table[token];
                if(func) {
                   result = func(line.substr(token_end+1,line.length()));
                }
 */
-	       result = ExecuteHandler(token,line.substr(token_end+1,line.length()));
+	       result = ExecuteHandler(token,rest);
 
                if (result > 0) {
                    cerr << "Qasm Op failed - ["<<token<<"]"<<endl;
