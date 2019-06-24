@@ -552,14 +552,14 @@ void QubitRegister<Type>::ExpectationValue(std::vector<unsigned> &qubits,
   }  
 }
 
-template <class Type>
-BaseType QubitRegister<Type>::ExpectationValue(std::vector<unsigned> &qubits,
-                                           std::vector<unsigned> &observables)
-{
-	BaseType sum=0.0;
-	ExpectationValue(qubits,observables,sum);
-	return sum;
-}
+//template <class Type>
+//BaseType QubitRegister<Type>::ExpectationValue(std::vector<unsigned> &qubits,
+//                                           std::vector<unsigned> &observables)
+//{
+//	BaseType sum=0.0;
+//	ExpectationValue(qubits,observables,sum);
+//	return sum;
+//}
 
 template class QubitRegister<ComplexSP>;
 template class QubitRegister<ComplexDP>;

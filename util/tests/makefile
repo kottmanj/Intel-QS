@@ -16,8 +16,8 @@
 
 include ../../make.inc
 
-LDFLAGS =   -L${MKLROOT}/lib/intel64 -lmkl_cdft_core -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -lmkl_blacs_intelmpi_ilp64 -lpthread -lirc
-
+LDFLAGS =   -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread  -lpthread -lirc
+#-lmkl_cdft_core -lmkl_blacs_intelmpi_ilp64 
 ifdef VECTORIZATION_REPORT
 OPTS:=-qopt-report3 -qopt-report-phase=loop,vec
 endif

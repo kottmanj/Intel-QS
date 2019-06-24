@@ -18,7 +18,7 @@ bigmpi = 0
 
 HOST = $(shell hostname)
 
-CC = g++
+CC = icpc
 CC = CC -mkl -no-ipo
 CC = mpicxx
 CC = mpiicpc

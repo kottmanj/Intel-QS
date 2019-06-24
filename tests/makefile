@@ -15,8 +15,8 @@
 ##------------------------------------------------------------------------------
 include ../make.inc
 
-LDFLAGS =   -L${MKLROOT}/lib/intel64 -lmkl_cdft_core -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -lmkl_blacs_intelmpi_ilp64 -lpthread
-
+LDFLAGS =   -L${MKLROOT}/lib/intel64  -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -lpthread
+#-lmkl_cdft_core -lmkl_blacs_intelmpi_ilp64 
 ifdef memcheck
  LDFLAGS := ${LDFLAGS} /home/msmelyan/valgrind-3.11.0/installed/lib/valgrind/libmpiwrap-amd64-linux.so
 endif
