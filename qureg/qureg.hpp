@@ -216,7 +216,7 @@ class QubitRegister
                           BaseType &sum, BaseType coeff=1.);
   void ExpectationValue(std::vector<unsigned> &qubits, std::vector<unsigned> &observables,
                         BaseType &sum, BaseType coeff=1.);
-  BaseType ExpectationValue(std::vector<unsigned> &qubits, std::vector<unsigned> &observables);
+  BaseType compute_ExpectationValue(std::vector<unsigned> &qubits, std::vector<unsigned> &observables);
 
   // utilities
   bool operator==(const QubitRegister &rhs);
